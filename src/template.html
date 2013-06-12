@@ -13,7 +13,7 @@
 var parse = function(data) {
   var lines = data.trim().split('\n');
   // decide separator
-  if (lines[0].trim().indexOf('	')){
+  if (lines[0].trim().indexOf('	')>0){
     var separator = '	';
   } else {
     var separator = ',';
