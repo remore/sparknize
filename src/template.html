@@ -24,7 +24,7 @@ var parse = function(data) {
     var tokens = $(this.split(separator)).map(function(i, v) {return v.trim();});
     table.push(tokens.get());
   });
-  // parse
+  // prepare data table
   for(var row = 0; row < table.length; row++) {
     for(var col = 0; col < table[row].length; col++) {
       if (col==0){
@@ -33,6 +33,7 @@ var parse = function(data) {
         table[row][col] = Number(table[row][col].trim());
       }
     }
+    // if # of columns is less than the number of header columns, just add Number(0) for supplement purpose
     for(var i = 0; i < lines[0].trim().split(separator).length-col; i++){
       table[row][col+i] = Number(0);
     }
