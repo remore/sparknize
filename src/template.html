@@ -33,6 +33,9 @@ var parse = function(data) {
         table[row][col] = Number(table[row][col].trim());
       }
     }
+    for(var i = 0; i < lines[0].trim().split(separator).length-col; i++){
+      table[row][col+i] = Number(0);
+    }
   }
   return {columns: lines[0].trim().split(separator), rows: table};
 };
