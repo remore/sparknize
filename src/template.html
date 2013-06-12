@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>@___TITLE___@</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://twitter.github.com/bootstrap/assets/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script type="text/javascript">
+
+var parse = function(data) {
+  var lines = data.trim().split('\n');
+  // decide separator
+  if (lines[0].trim().indexOf('	')){
+    var separator = '	';
+  } else {
+    var separator = ',';
+  }
+  // tokenize
+  var table = [];
+  $(lines).each(function() {
+    var tokens = $(this.split(separator)).map(function(i, v) {return v.trim();});
+    table.push(tokens.get());
+  });
+  // parse
+  for(var row = 0; row < table.length; row++) {
+    for(var col = 0; col < table[row].length; col++) {
+      if (col==0){
+        table[row][0] = new Date(table[row][col]);
+      } else {
+        table[row][col] = Number(table[row][col].trim());
+      }
+    }
+  }
+  return {columns: lines[0].trim().split(separator), rows: table};
+};
+
+google.load('visualization', '1', {packages: ['annotatedtimeline']});
+google.setOnLoadCallback(function() {
+  var data = new google.visualization.DataTable();
+  var myd = parse(document.getElementById('rawdata').innerHTML);
+  for(var i=0; i<myd.columns.length; i++){
+    if (i==0){
+      datatype = 'date';
+    } else {
+      datatype = 'number';
+    }
+    data.addColumn(datatype, myd.columns[i]);
+  }
+  data.addRows(myd.rows);
+  
+  //https://developers.google.com/chart/interactive/docs/gallery/annotatedtimeline
+  var annotatedtimeline = new google.visualization.AnnotatedTimeLine(
+    document.getElementById('spark'));
+    annotatedtimeline.draw( data, {
+      displayAnnotationsFilter: true,
+      legendPosition: 'newRow', 
+      colors:['#F50A84', '#A8075A', '#F56C85', '#A84A5B', '#F5840A', '#A85A07', '#42C0C2', '#8AFDFF', '#84F50A', '#5AA807', '#F5CA0A', '#A88B07', '#0AF584', '#07A85A', '#2DF50A', '#1FA807', '#0A84F5', '#075AA8', '#F5CA0A', '#A87007', '#840AF5', '#5A07A8', '#B36CF5', '#7B4AA8']
+    }
+  );
+  console.log("fin.");
+});
+  </script>
+</head>
+<body style="margin: 1em;">
+  <div style="margin:auto;">
+    <h2>@___TITLE___@</h2>
+    <div id="spark" style="@___STYLE___@"></div>
+    <pre id="rawdata">@___DATA___@</pre>
+  </div>
+</body>
+</html>
