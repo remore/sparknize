@@ -29,7 +29,7 @@ function sv2spark(){
   done
   
   # instantiate spark graph
-  cat "`dirname (readlink -f $0)`/template.html" | sed -e "s/@___DATA___@/\\
+  cat `dirname (readlink -f $0)`/template.html | sed -e "s/@___DATA___@/\\
 ${DATA[@]}
 /g" | sed -e "s/@___TITLE___@/${TITLE}/g" | sed -e "s/@___STYLE___@/height: ${HEIGHT}px;/g" 
   
