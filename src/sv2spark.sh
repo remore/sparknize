@@ -25,7 +25,7 @@ function sv2spark(){
   # receive standard input
   local DATA=()
   while read f; do
-    DATA+=("$f\\\\\n")
+    DATA+=("$f\\\\n")
   done
   
   # instantiate spark graph
