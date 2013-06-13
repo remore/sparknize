@@ -25,12 +25,13 @@ function sv2spark(){
   # receive standard input
   local DATA=()
   while read f; do
-    DATA+=("$f\n")
+    DATA+=("$f\\\n")
   done
   
   # instantiate spark graph
-  echo "s/@___DATA___@/\\" > pattern.txt; echo -e "${DATA[@]}" | sed -e 's/^//;s/$/\\/' >> pattern.txt; echo "/g" >> pattern.txt
-  sed -f pattern.txt template.html | sed -e "s/@___TITLE___@/${TITLE}/g" | sed -e "s/@___STYLE___@/height: ${HEIGHT}px;/g" 
+  cat "`dirname (readlink -f $0)`/template.html" | sed -e "s/@___DATA___@/\\
+${DATA[@]}
+/g" | sed -e "s/@___TITLE___@/${TITLE}/g" | sed -e "s/@___STYLE___@/height: ${HEIGHT}px;/g" 
   
   exit 0
 }
