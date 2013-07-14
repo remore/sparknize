@@ -1,6 +1,6 @@
 # sparknize
 
-Visualize your CSV data in seconds.
+Visualize your CSV(or TSV) data in seconds.
 
 # Usage
 
