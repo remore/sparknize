@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage:
-# echo "title_A,title_B\n2013/06/12,4" | sparknize.sh <title> <height(px)>
+# echo -e "date,sales_amount\n2013-06-12,4" | /bin/bash sparknize.sh Sales_Amount_Report 600
 
 function sv2spark(){
   local TITLE="NO NAME"
